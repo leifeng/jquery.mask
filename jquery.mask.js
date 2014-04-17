@@ -25,14 +25,15 @@
 
 
         if ($('#maskDiv').length === 0) {
-            $('body').append('<div id="maskDiv"></div>');
+            $('body').append('<div id="maskDiv"></div>').append('<div id="ad"></div>');
         }
-        $('#maskDiv').css({'position': 'absolute', 'top': '0px', 'left': '0px', 'width': windowWidth, 'height': windowHeight, 'z-index': '100', 'filter': 'alpha(opacity=30)', 'opacity': '0.3', 'background': '#000'}).append('<div id="ad"></div>');
-        $('#ad').css({'width': options.width + 'px', 'height': options.height + 'px', 'position': 'absolute', 'top': adTop, 'left': adLeft, 'z-index': '200'}).append('<img src="close.png" id="maskClose">').append('<img src="' + options.imgUrl + '" width="' + options.width + '" height="' + options.height + '" border="0" id="maskImg">');
+        $('#maskDiv').css({'display':'block','position': 'absolute', 'top': '0px', 'left': '0px', 'width': windowWidth, 'height': windowHeight, 'z-index': '100', 'filter': 'alpha(opacity=30)', 'opacity': '0.3', 'background': '#000'});
+        $('#ad').css({'display':'block','width': options.width + 'px', 'height': options.height + 'px', 'position': 'absolute', 'top': adTop, 'left': adLeft, 'z-index': '200'}).html('<img src="close.png" id="maskClose"><img src="' + options.imgUrl + '" width="' + options.width + '" height="' + options.height + '" border="0" id="maskImg">');
         $('#maskClose').css({'position': 'absolute', 'top': '10px', 'right': '20px','z-index':'300'});
         $('#maskDiv').ready(function () {
             if (options.autoClose) {
                   $('#maskDiv').delay(options.closeTime).fadeOut(options.speed);
+                $('#ad').delay(options.closeTime).fadeOut(options.speed);
             }
         });
 
@@ -44,6 +45,7 @@
         });
         $('#maskClose').on('click', function () {
             $('#maskDiv').stop().fadeOut(options.speed);
+            $('#ad').stop().fadeOut(options.speed);
         })
     }
 })(jQuery);
